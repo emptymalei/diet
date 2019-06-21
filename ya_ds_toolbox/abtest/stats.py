@@ -1,24 +1,24 @@
 import numpy as np
 import scipy.stats as scs
-from ya_ds_toolbox.ab.stats_util import cal_conversion_rate,cal_standard_error
-from ya_ds_toolbox.ab.stats_util import cal_difference_standard_error, cal_conversion_uplift
-from ya_ds_toolbox.ab.stats_util import cal_pooled_probability, cal_pooled_std_err
-from ya_ds_toolbox.ab.stats_util import cal_z_score
-from ya_ds_toolbox.ab.stats_util import cal_p_value
+from ya_ds_toolbox.abtest.stats_util import cal_conversion_rate,cal_standard_error
+from ya_ds_toolbox.abtest.stats_util import cal_difference_standard_error, cal_conversion_uplift
+from ya_ds_toolbox.abtest.stats_util import cal_pooled_probability, cal_pooled_std_err
+from ya_ds_toolbox.abtest.stats_util import cal_z_score
+from ya_ds_toolbox.abtest.stats_util import cal_p_value
 
 class ABTestRatiosNaive():
 
     def __init__(
-        self, 
+        self,
         ab_test_data,
         test_name = None
         ):
 
         self.data = ab_test_data
-        self.A_total = ab_test_data.get('A_total') 
-        self.A_converted = ab_test_data.get('A_converted') 
-        self.B_total = ab_test_data.get('B_total') 
-        self.B_converted = ab_test_data.get('B_converted') 
+        self.A_total = ab_test_data.get('A_total')
+        self.A_converted = ab_test_data.get('A_converted')
+        self.B_total = ab_test_data.get('B_total')
+        self.B_converted = ab_test_data.get('B_converted')
         if test_name:
             self.name = test_name
         else:
@@ -45,7 +45,7 @@ class ABTestRatiosNaive():
 
     def pooled_probability(self):
         """Pooled probability for two samples
-        
+
         This is better used as an intermediate value.
         """
 
@@ -62,7 +62,7 @@ class ABTestRatiosNaive():
         For more information about the definition, refer to wikipedia:
         https://en.wikipedia.org/wiki/Pooled_variance
         """
-        
+
         self.pooled_probability()
 
         # Pooled standard error
@@ -70,7 +70,7 @@ class ABTestRatiosNaive():
         self.pld_std_err = cal_pooled_std_err(pp, self.A_total, self.B_total)
 
         return self.pld_std_err
-    
+
     def conversion_uplift(self):
         """Uplift in conversion rate
 
@@ -106,7 +106,7 @@ class ABTestRatiosNaive():
 
         return self.z
 
-    
+
     def difference_std_err(self):
         """
         """
@@ -120,7 +120,7 @@ class ABTestRatiosNaive():
         return self.diff_std_err
 
     def report(self, with_data = None, pipeline=None):
-        """Run pipeline and 
+        """Run pipeline and
         """
         if pipeline is None:
             pipeline = 'all'
@@ -132,13 +132,13 @@ class ABTestRatiosNaive():
                 getattr(self, meth)
                 ) and '__' not in meth and meth != 'report'
             ]
-        
+
         for method in all_pipes:
             getattr(self, method)()
 
         res = {
             'kpi': {
-                'a': self.A_cr, 
+                'a': self.A_cr,
                 'b': self.B_cr
             },
             'std_err': {
@@ -163,7 +163,7 @@ class ABTestRatiosNaive():
 
 class ABTestRatios():
     """This test uses the difference between the ratios $d=A_cr - B_cr$ as the signature.
-    
+
     According to central limit theorem, we could approximate the distribution of d as a normal distribution.
 
     Null hypothesis: d = 0, sigma = pooled standard error
@@ -177,10 +177,10 @@ class ABTestRatios():
         ):
 
         self.data = ab_test_data
-        self.A_total = ab_test_data.get('A_total') 
-        self.A_converted = ab_test_data.get('A_converted') 
-        self.B_total = ab_test_data.get('B_total') 
-        self.B_converted = ab_test_data.get('B_converted') 
+        self.A_total = ab_test_data.get('A_total')
+        self.A_converted = ab_test_data.get('A_converted')
+        self.B_total = ab_test_data.get('B_total')
+        self.B_converted = ab_test_data.get('B_converted')
         if test_name:
             self.name = test_name
         else:
@@ -220,7 +220,7 @@ class ABTestRatios():
 
     def pooled_probability(self):
         """Pooled probability for two samples
-        
+
         This is better used as an intermediate value.
         """
 
@@ -229,14 +229,14 @@ class ABTestRatios():
         self.probability = cal_pooled_probability(A_total, B_total, A_converted, B_converted)
 
         return self.probability
-            
+
     def pooled_std_err(self):
         """Pooled standard error for two samples
 
         For more information about the definition, refer to wikipedia:
         https://en.wikipedia.org/wiki/Pooled_variance
         """
-        
+
         self.pooled_probability()
 
         # Pooled standard error
@@ -308,13 +308,13 @@ class ABTestRatios():
                 getattr(self, meth)
                 ) and '__' not in meth and meth != 'report'
             ]
-        
+
         for method in all_pipes:
             getattr(self, method)()
 
         res = {
             'kpi': {
-                'a': self.A_cr, 
+                'a': self.A_cr,
                 'b': self.B_cr
             },
             'std_err': {
@@ -335,12 +335,12 @@ class ABTestRatios():
             res['data'] = self.data
 
         return res
-        
+
 
 class ABTestSeries():
 
     def __init__(
-        self, 
+        self,
         ab_test_data,
         kpi_method = None,
         test_name = None
@@ -352,28 +352,28 @@ class ABTestSeries():
             self.name = None
 
         self.data = ab_test_data
-        self.A_series = ab_test_data.get('A_series') 
-        self.B_series = ab_test_data.get('B_series') 
+        self.A_series = ab_test_data.get('A_series')
+        self.B_series = ab_test_data.get('B_series')
 
         self.A_total = len(self.A_series)
         self.B_total = len(self.B_series)
-        
+
         if kpi_method is None:
             self.kpi_method = 'sum'
         else:
             self.kpi_method = kpi_method
 
         if self.kpi_method == 'sum':
-            self.A_converted = np.sum(self.A_series) 
-            self.B_converted = np.sum(self.B_series) 
+            self.A_converted = np.sum(self.A_series)
+            self.B_converted = np.sum(self.B_series)
         elif self.kpi_method == 'count':
-            self.A_converted = np.count_nonzero(self.A_series) 
+            self.A_converted = np.count_nonzero(self.A_series)
             self.B_converted = np.count_nonzero(self.B_series)
         elif self.kpi_method == 'non_zero_avg':
-            self.A_converted = np.sum(self.A_series)/np.count_nonzero(self.A_series) 
+            self.A_converted = np.sum(self.A_series)/np.count_nonzero(self.A_series)
             self.B_converted = np.sum(self.B_series)/np.count_nonzero(self.B_series)
         elif self.kpi_method == 'all_avg':
-            self.A_converted = np.sum(self.A_series)/len(self.A_series) 
+            self.A_converted = np.sum(self.A_series)/len(self.A_series)
             self.B_converted = np.sum(self.B_series)/len(self.B_series)
 
 
@@ -408,7 +408,7 @@ class ABTestSeries():
         self.uplift = (self.B_kpi - self.A_kpi)/self.A_kpi
 
         return self.uplift
-    
+
 
     def p_value(self):
         """
@@ -425,7 +425,7 @@ class ABTestSeries():
 
 
     def report(self, with_data = None, pipeline=None):
-        """Run pipeline and 
+        """Run pipeline and
         """
         if pipeline is None:
             pipeline = 'all'
@@ -437,13 +437,13 @@ class ABTestSeries():
                 getattr(self, meth)
                 ) and '__' not in meth and meth != 'report'
             ]
-        
+
         for method in all_pipes:
             getattr(self, method)()
 
         res = {
             'kpi': {
-                'a': self.A_kpi, 
+                'a': self.A_kpi,
                 'b': self.B_kpi
             },
             'std_err': {
@@ -476,7 +476,7 @@ if __name__ == "__main__":
         "Ratios:\n",
         dd.report()
     )
-    
+
     print(
         "Naive Method:\n",
         ab_naive.report()
@@ -504,7 +504,7 @@ if __name__ == "__main__":
     # )
 
     print(
-        mw.report(with_data = False) 
+        mw.report(with_data = False)
     )
 
     print('END')

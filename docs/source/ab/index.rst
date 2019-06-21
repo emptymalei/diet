@@ -7,4 +7,3 @@ AB-Test Tools
    :caption: Contents:
 
    stats.rst
-   visualization.rst
