@@ -42,13 +42,21 @@ def clean_company_name(
         remove_chars = False
     if remove_chars and (chars_data is None):
         chars_data = [
-            '"', "'", '(', ')', '[', ']'
+            '"'
             ]
 
     # unquote name to make sure the string do not have url encodings
     logger.debug(f'clean_company_name:: unquoting {company_name}')
     company_name = _unquote(company_name)
 
+    company_name = company_name.strip()
+
+    first_three_characters_forbiden = ('*', '=', '#', '%', '+')
+    company_name_first_three = company_name[:3]
+    company_name_fourth_to_last = company_name[3:]
+    for i in first_three_characters_forbiden:
+        company_name_first_three = company_name_first_three.replace(i,'')
+    company_name = company_name_first_three+company_name_fourth_to_last
     company_name = company_name.strip()
 
     if remove_legal_form:
