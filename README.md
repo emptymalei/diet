@@ -1,8 +1,6 @@
-# Yet Another Data Toolbox
+# Data Science Toolbox
 
-Collection of functions and scripts for data wrangling.
-
-I use this as a place to copy and paste utility functions. It is quite easy to find and copy functions using sphinx-doc generated documentation.
+Yet Another Data Toolbox: DIET (Data scIencE Toolbox), a collection of functions and scripts for my data projects.
 
 ## Roadmap
 

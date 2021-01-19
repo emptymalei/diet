@@ -1,12 +1,19 @@
-Yet Another Data Science Toolbox
+DIET - yet another Data scIencE Toolbox
 ==========================================================
 
+DIET is more of a collection than a package.
 
-A collection of functions for data wrangling.
 
+Tutorials
+-------------------
+
+
+
+References
+------------------
 
 General Utilities
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
    :maxdepth: 2
@@ -15,11 +22,11 @@ General Utilities
 
 
 AB-Test Utilities
------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
    :maxdepth: 2
-    
+
    ab/index.rst
 
 
