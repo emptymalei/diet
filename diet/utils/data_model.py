@@ -1,13 +1,9 @@
-import logging
-
-logging.basicConfig()
-_logger = logging.getLogger('utils.data_model')
+from loguru import logger as _logger
 
 
 def get_value_in_dict_recursively(
-    dictionary, path_to_destination,
-    ignore_path_fail=None
-    ):
+    dictionary, path_to_destination, ignore_path_fail=None
+):
     """
     Get value of a dictionary according to specified path (names)
 
@@ -29,7 +25,7 @@ def get_value_in_dict_recursively(
     elif isinstance(path_to_destination, str):
         path_temp = [path_to_destination].copy()
     else:
-        raise ValueError('path_to_destination must be str or list')
+        raise ValueError("path_to_destination must be str or list")
     if len(path_temp) > 1:
         pop = path_temp.pop(0)
         try:
@@ -38,7 +34,7 @@ def get_value_in_dict_recursively(
             if ignore_path_fail:
                 pass
             else:
-                raise Exception('ill specified path_to_destination')
+                raise Exception("ill specified path_to_destination")
 
         try:
             return get_value_in_dict_recursively(dictionary[pop], path_temp)
@@ -55,8 +51,8 @@ def get_value_in_dict_recursively(
         try:
             return dictionary[val]
         except KeyError:
-            _logger.log(20, 'KeyError: Could not find {}'.format(path_temp[0]))
+            _logger.log(20, "KeyError: Could not find {}".format(path_temp[0]))
             return None
         except TypeError:
-            _logger.log(20, 'TypeError: Could not find {}'.format(path_temp[0]))
+            _logger.log(20, "TypeError: Could not find {}".format(path_temp[0]))
             return None

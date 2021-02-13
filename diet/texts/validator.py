@@ -1,7 +1,5 @@
-import logging
-
-logging.basicConfig()
-logger = logging.getLogger('texts.validator')
+from loguru import logger
+import re
 
 
 def data_validator(input_str, validate_type):
@@ -18,24 +16,22 @@ def data_validator(input_str, validate_type):
     """
 
     regex_validate_types = {
-        'domain': re.compile(
-                        r'^(?:[a-z0-9]'  # First character of the domain
-                        r'(?:[a-z0-9-_]{0,61}[a-z0-9])?\.)'  # Sub domain + hostname
-                        r'+[a-z0-9][a-z0-9-_]{0,61}'  # First 61 characters of the gTLD
-                        r'[a-z0-9]$'  # Last character of the gTLD
-                    ),
-        'email': re.compile(
-                        r'^(?:[a-z0-9]'  # First character of the domain
-                        r'(?:[a-z0-9-_]{0,61}[a-z0-9])?\.)'  # Sub domain + hostname
-                        r'+[a-z0-9][a-z0-9-_]{0,61}'  # First 61 characters of the gTLD
-                        r'[a-z0-9]$'  # Last character of the gTLD
-                    )
+        "domain": re.compile(
+            r"^(?:[a-z0-9]"  # First character of the domain
+            r"(?:[a-z0-9-_]{0,61}[a-z0-9])?\.)"  # Sub domain + hostname
+            r"+[a-z0-9][a-z0-9-_]{0,61}"  # First 61 characters of the gTLD
+            r"[a-z0-9]$"  # Last character of the gTLD
+        ),
+        "email": re.compile(
+            r"^(?:[a-z0-9]"  # First character of the domain
+            r"(?:[a-z0-9-_]{0,61}[a-z0-9])?\.)"  # Sub domain + hostname
+            r"+[a-z0-9][a-z0-9-_]{0,61}"  # First 61 characters of the gTLD
+            r"[a-z0-9]$"  # Last character of the gTLD
+        ),
     }
 
     if validate_type not in regex_validate_types:
-        raise ValueError(
-                    'validate_type ({}) is not defined'.format(validate_type)
-                    )
+        raise ValueError("validate_type ({}) is not defined".format(validate_type))
     else:
         matched = regex_validate_types.get(validate_type).match(input_str)
         if matched:
