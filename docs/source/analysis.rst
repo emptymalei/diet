@@ -1,9 +1,9 @@
 Analysis Utilities
 =======================
 
-Documentation for `ya_ds_toolbox.analysis`
+Documentation for `diet.analysis`
 
-.. automodule:: ya_ds_toolbox.analysis
+.. automodule:: diet.analysis
 
 
 

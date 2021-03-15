@@ -5,7 +5,7 @@ import os
 from pymongo import MongoClient
 from sshtunnel import SSHTunnelForwarder
 
-from .data_mode import get_value_in_dict_recursively as _get_value_in_dict_recursively
+from diet.data.wrangling import get_value_in_dict_recursively as _get_value_in_dict_recursively
 
 logging.basicConfig()
 _logger = logging.getLogger("utils.io")

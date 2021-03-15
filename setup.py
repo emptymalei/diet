@@ -66,7 +66,7 @@ def setup():
         include_package_data=True,
         test_suite='nose.collector',
         tests_require=['nose'],
-        extras_require=get_extra_requires('requirements-extras.txt'),
+        extras_require=get_extra_requires('requirements.extras.txt'),
         zip_safe=False
     )
 

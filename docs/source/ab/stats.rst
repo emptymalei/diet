@@ -1,9 +1,9 @@
 AB Testing Statistics Utilities
 =====================================
 
-Documentation for `ya_ds_toolbox.abtest.stats`
+Documentation for `diet.abtest.stats`
 
-.. automodule:: ya_ds_toolbox.abtest.stats
+.. automodule:: diet.abtest.stats
 
 
 Classes

@@ -1,55 +1,18 @@
-import os, sys
 import inspect
-import logging
-import pandas as pd
 import re
 import time
-import simplejson as json
-import data_wrangling as wlg
-import ast
 
-logging.basicConfig()
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-
-def convert_to_list(inp):
-
-    res = []
-    if isinstance(inp, str):
-        try:
-            res = ast.literal_eval(inp)
-        except Exception as e:
-            raise Exception(f"Could not convert {inp} to list")
-    elif isinstance(inp, (list, tuple, set)):
-        res = list(inp)
-
-    return res
-
-
-def convert_to_tuple(inp):
-
-    res = []
-    if isinstance(inp, str):
-        try:
-            res = ast.literal_eval(inp)
-        except Exception as e:
-            raise Exception(f"Could not convert {inp} to list")
-    if isinstance(inp, (list, tuple, set)):
-        res = tuple(inp)
-
-    return res
+import diet.data.wrangling.ingredients as wlg
+import pandas as pd
+from loguru import logger
 
 
 class Transformer:
     """
-    Base Transformer of a record
+    Base Transformer of a single data record
     """
 
     def __init__(self, schema, use_schema_column=None):
-        """
-        init
-        """
 
         if use_schema_column is None:
             use_schema_column = "source_column"
@@ -66,7 +29,6 @@ class Transformer:
         _schema_to_utils converts some utility schemas using the input full schema
         """
         self.column_rename_schema = {
-            # i.get(self.use_schema_column) or i.get('column_name'):i.get('column_name') for i in self.schema
             i.get("column_name"): i.get("column_name")
             for i in self.schema
         }
@@ -100,8 +62,6 @@ class Transformer:
             if i in transformers:
                 i_val["transformer"] = transformers.get(i)
                 logger.info("Has predefined transformer for {}".format(i))
-                # if i_val.get('type') == 'list':
-                #     logger.info('Transformer list test: {}'.format(transformers.get(i)('12')))
             else:
                 logger.info(
                     "Using default transformer for {}; format: {}".format(
@@ -158,8 +118,7 @@ class Transformer:
             elif to_format.lower() == "bool":
                 res = wlg.convert_to_bool(data)
             elif to_format.lower() == "list":
-                res = convert_to_list(data)
-                # res = convert_to_tuple(data)
+                res = wlg.convert_str_repr_to_list(data)
             else:
                 raise Exception(
                     f"Can not transform {data}; No transformer defined for the format: {to_format}"

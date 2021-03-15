@@ -1,7 +1,7 @@
 DIET - yet another Data scIencE Toolbox
 ==========================================================
 
-DIET is more of a collection than a package.
+DIET is a package to help you with data science experiemnts.
 
 
 Tutorials
@@ -28,6 +28,15 @@ AB-Test Utilities
    :maxdepth: 2
 
    ab/index.rst
+
+
+Data
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 2
+
+   data/index.rst
 
 
 
