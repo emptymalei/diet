@@ -1,5 +1,6 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
+from loguru import logger
 
 
 def count_column_values_within_ranges(df_inp, column_name, bins=None):
@@ -52,6 +53,7 @@ def count_column_values_within_ranges_two_levels_deep(
     """
 
     if bins is None:
+        logger.warning("No bins specified, will use a default range 0-10000")
         bins = np.arange(0, 10000, 100)
 
     df_first_groups = df_inp.groupby(first_groupby_column_name)
@@ -70,8 +72,6 @@ def count_column_values_within_ranges_two_levels_deep(
             ] = count_column_values_within_ranges(
                 one_df_of_second_groups, count_column_name, bins
             )
-            # print(f'{second_groups_key}')
-        # print(f'{first_groups_key}')
         return_data[first_groups_key] = counting_data_of_one_group
 
     return return_data

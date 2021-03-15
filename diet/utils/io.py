@@ -1,21 +1,21 @@
 import json
-import logging
 import os
 
+from awscli.clidriver import create_clidriver
+from diet.data.wrangling import \
+    get_value_in_dict_recursively as _get_value_in_dict_recursively
+from loguru import logger
 from pymongo import MongoClient
 from sshtunnel import SSHTunnelForwarder
 
-from diet.data.wrangling import get_value_in_dict_recursively as _get_value_in_dict_recursively
-
-logging.basicConfig()
-_logger = logging.getLogger("utils.io")
-
 
 def get_environ(env_name, env_default_value):
-    """Get current environment variables"""
-    if env is None:
-        env = env or os.environ.get(env_name, env_default_value)
-    env = env.lower()
+    """
+    Get current environment variables
+    """
+
+    env = os.environ.get(env_name, env_default_value)
+
     return env
 
 
@@ -67,7 +67,7 @@ def load_records(data_path_inp):
             try:
                 line_data = json.loads(line.strip())
             except Exception as ee:
-                _logger.warning("could not load ", line, "\n", ee)
+                logger.warning("could not load ", line, "\n", ee)
             data.append(line_data)
 
     return data
@@ -192,11 +192,11 @@ class LocalStorage:
             record_identifier_lookup_paths = [record_identifier_lookup_paths]
 
         if not isinstance(record_identifier, str):
-            _logger.warning("Input data is not string")
+            logger.warning("Input data is not string")
             try:
                 record_identifier = str(record_identifier)
             except Exception as ee:
-                _logger.error(
+                logger.error(
                     f"Could not convert input {record_identifier} to string! {ee}"
                 )
                 return {"exists": False, "record": None}
@@ -224,5 +224,138 @@ class LocalStorage:
         company = record.get("company")
 
         if self.is_in_storage(company).get("exists"):
-            _logger.debug(f"{company} already exists! No need to save again!")
+            logger.debug(f"{company} already exists! No need to save again!")
         save_records(record, self.target, is_flush=True)
+
+
+
+def aws_cli(*cmd):
+    """
+    aws_cli invokes the aws cli processes in python to execute awscli commands.
+    .. warning::
+        This is not the most elegant way of using awscli.
+        However, it has been a convinient function in data science projects.
+    :param *cmd: tuple of awscli command.
+    .. admonition:: Examples
+       :class: info
+       AWS credential env variables should be configured before calling this function.
+       The awscli command should be wrapped as a tuple. To download data from S3 to a local path, use
+       >>> aws_cli(('s3', 'sync', 's3://s2-fpd/augmentation/', '/tmp/test'))
+       Similarly, upload is done in the following way
+       >>> # local_path = ''
+       >>> # remote_path = ''
+       >>> _aws_cli(('s3', 'sync', local_path, remote_path))
+    .. admonition:: References
+       :class: info
+       This function is adapted from https://github.com/boto/boto3/issues/358#issuecomment-372086466
+    """
+    old_env = dict(os.environ)
+    try:
+        # Set up environment
+        env = os.environ.copy()
+        env["LC_CTYPE"] = "en_US.UTF"
+        os.environ.update(env)
+
+        # Run awscli in the same process
+        exit_code = create_clidriver().main(*cmd)
+
+        # Deal with problems
+        if exit_code > 0:
+            raise RuntimeError("AWS CLI exited with code {}".format(exit_code))
+    finally:
+        os.environ.clear()
+        os.environ.update(old_env)
+
+
+def prepare_folders(base_folder, folders):
+    """
+    prepare_folders creates the necessary folders
+    :param base_folder: base folder of the whole project
+    :type base_folder: str
+    :param folders: list of folder keys in the config
+    :type folders: list
+    """
+
+    for folder in folders:
+        folder_local = os.path.join(base_folder, folder)
+        if not os.path.exists(folder_local):
+            os.makedirs(folder_local)
+
+
+def download_artefacts(artefacts, base_folder):
+    """
+    download_artefacts download the files from s3
+    :param artefacts: configuration dictionary
+    :type artefacts: dict
+    :param base_folder: base folder of the whole project
+    :type base_folder: str
+    The parameter `artefacts` is a dictioniary that defines the local and remote
+    locations of the files.
+    .. highlight:: python
+    .. code-block:: python
+       {
+           "dataset": {
+               "local": "model/dataset",
+               "remote": "s3://abc/def/model/dataset"
+           },
+           "model": {
+               "name": "model.joblib",
+               "local": "model",
+               "remote": "s3://abc/def/model/model"
+           }
+       }
+    """
+
+    for _, paths in artefacts.items():
+        local_folder = paths.get("local")
+        remote_folder = paths.get("remote")
+        local_folder = os.path.join(base_folder, local_folder)
+        logger.info(
+            f"Downloading model results in {local_folder} from S3 {remote_folder}"
+        )
+        aws_cli(("s3", "sync", remote_folder, local_folder))
+        logger.info("Download model from S3...")
+
+
+def upload_artefacts(artefacts, base_folder, items=None):
+    """
+    upload_artefacts uploads the artefacts
+    :param artefacts: dictionary that defines the local and remote locations
+    :type artefacts: dict
+    :param base_folder: base folder of the whole project
+    :type base_folder: str
+    The parameter `artefacts` is a dictioniary that defines the local and remote
+    locations of the files.
+    .. highlight:: python
+    .. code-block:: python
+       {
+           "dataset": {
+               "local": "model/dataset",
+               "remote": "s3://abc/def/model/dataset"
+           },
+           "model": {
+               "name": "model.joblib",
+               "local": "model",
+               "remote": "s3://abc/def/model/model"
+           }
+       }
+    """
+
+    if items is None:
+        items = [art for art, _ in artefacts.items()]
+
+    logger.info(f"** Uploading artefacts: {items}**")
+    for art, paths in artefacts.items():
+        if art in items:
+            logger.info(f"Uploading {art} with paths {paths}")
+            local_folder = paths.get("local")
+            remote_folder = paths.get("remote")
+            local_folder = os.path.join(base_folder, local_folder)
+            logger.info(
+                f"Uploading model results in {local_folder} to S3 {remote_folder}"
+            )
+            if not os.path.exists(local_folder):
+                logger.warning(f"{local_folder} does not exist")
+            else:
+                aws_cli(("s3", "sync", local_folder, remote_folder))
+                logger.info("Uploaded model to S3...")
