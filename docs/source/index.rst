@@ -40,6 +40,25 @@ Data
 
 
 
+Texts
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 2
+
+   texts/index.rst
+
+
+
+Lab
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 2
+
+   lab/index.rst
+
+
 HISTORY
 ------------------
 
