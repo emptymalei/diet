@@ -1,5 +1,5 @@
 Utils
---------------------------------
+=======================
 
 
 .. toctree::
@@ -7,3 +7,4 @@ Utils
    :caption: Contents:
 
    io.rst
+   sugar.rst

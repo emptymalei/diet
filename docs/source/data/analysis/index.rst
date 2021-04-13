@@ -1,4 +1,4 @@
-Data
+Data - Analysis
 --------------------------------
 
 
@@ -6,4 +6,4 @@ Data
    :maxdepth: 2
    :caption: Contents:
 
-   analysis/index.rst
+   description.rst

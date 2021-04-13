@@ -18,7 +18,7 @@ General Utilities
 .. toctree::
    :maxdepth: 2
 
-   analysis.rst
+   utils/index.rst
 
 
 AB-Test Utilities
@@ -27,7 +27,7 @@ AB-Test Utilities
 .. toctree::
    :maxdepth: 2
 
-   ab/index.rst
+   abtest/index.rst
 
 
 Data
