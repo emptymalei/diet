@@ -29,8 +29,7 @@ class Transformer:
         _schema_to_utils converts some utility schemas using the input full schema
         """
         self.column_rename_schema = {
-            i.get("column_name"): i.get("column_name")
-            for i in self.schema
+            i.get("column_name"): i.get("column_name") for i in self.schema
         }
 
         # build transformer schema
@@ -98,7 +97,7 @@ class Transformer:
             elif to_format.lower() == "int":
                 if isinstance(data, str):
                     if ("." in data) or ("," in data):
-                        data = wlg.eu_float_string_to_float(data)
+                        data = wlg.misc.eu_float_string_to_float(data)
                 try:
                     res = int(float(data))
                 except Exception as e:
@@ -106,19 +105,19 @@ class Transformer:
             elif to_format.lower() == "float":
                 if isinstance(data, str):
                     if ("." in data) or ("," in data):
-                        data = wlg.eu_float_string_to_float(data)
+                        data = wlg.misc.eu_float_string_to_float(data)
                 try:
                     res = float(data)
                 except Exception as e:
                     raise Exception("Could not convert {} to float".format(data))
             elif to_format.lower() == "datetime":
-                res = wlg.convert_to_datetime(data, dayfirst=False)
+                res = wlg.datetime.convert_to_datetime(data, dayfirst=False)
             elif to_format.lower() == "date":
-                res = wlg.convert_to_date(data)
+                res = wlg.datetime.convert_to_date(data)
             elif to_format.lower() == "bool":
-                res = wlg.convert_to_bool(data)
+                res = wlg.misc.convert_to_bool(data)
             elif to_format.lower() == "list":
-                res = wlg.convert_str_repr_to_list(data)
+                res = wlg.misc.convert_str_repr_to_list(data)
             else:
                 raise Exception(
                     f"Can not transform {data}; No transformer defined for the format: {to_format}"

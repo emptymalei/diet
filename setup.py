@@ -3,17 +3,17 @@ from setuptools import setup as _setup
 
 from diet.version import __version__
 
-PACKAGE_NAME = 'diet'
+PACKAGE_NAME = "diet"
 PACKAGE_VERSION = __version__
-PACKAGE_DESCRIPTION = 'The DIET package for data science'
+PACKAGE_DESCRIPTION = "The DIET package for data science"
 PACKAGE_LONG_DESCRIPTION = (
-    'DIET, Data scIencE Toolbox, is yet another package for data science projects'
+    "DIET, Data scIencE Toolbox, is yet another package for data science projects"
 )
-PACKAGE_URL = 'https://github.com/emptymalei/diet'
+PACKAGE_URL = "https://github.com/emptymalei/diet"
 
 
 def _requirements():
-    return [r for r in open('requirements.txt')]
+    return [r for r in open("requirements.txt")]
 
 
 def get_extra_requires(path, add_all=True):
@@ -36,18 +36,18 @@ def get_extra_requires(path, add_all=True):
     with open(path) as fp:
         extra_deps = defaultdict(set)
         for k in fp:
-            if k.strip() and not k.startswith('#'):
+            if k.strip() and not k.startswith("#"):
                 tags = set()
-                if ':' in k:
-                    k, v = k.split(':')
-                    tags.update(vv.strip() for vv in v.split(','))
-                tags.add(re.split('[<=>]', k)[0])
+                if ":" in k:
+                    k, v = k.split(":")
+                    tags.update(vv.strip() for vv in v.split(","))
+                tags.add(re.split("[<=>]", k)[0])
                 for t in tags:
                     extra_deps[t].add(k)
 
         # add tag `all` at the end
         if add_all:
-            extra_deps['all'] = set(vv for v in extra_deps.values() for vv in v)
+            extra_deps["all"] = set(vv for v in extra_deps.values() for vv in v)
 
     return extra_deps
 
@@ -59,17 +59,18 @@ def setup():
         description=PACKAGE_DESCRIPTION,
         long_description=PACKAGE_LONG_DESCRIPTION,
         url=PACKAGE_URL,
-        author='Lei Ma',
-        author_email='hi@leima.is',
-        license='MIT',
-        packages=_find_packages(exclude=('tests',)),
+        author="Lei Ma",
+        author_email="hi@leima.is",
+        license="MIT",
+        packages=_find_packages(exclude=("tests",)),
         include_package_data=True,
-        test_suite='nose.collector',
-        tests_require=['nose'],
-        extras_require=get_extra_requires('requirements.extras.txt'),
-        zip_safe=False
+        test_suite="nose.collector",
+        tests_require=["nose"],
+        extras_require=get_extra_requires("requirements.extras.txt"),
+        zip_safe=False,
     )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     setup()
-    print(_find_packages(exclude=('tests',)))
+    print(_find_packages(exclude=("tests",)))

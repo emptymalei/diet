@@ -1,7 +1,20 @@
 from fuzzywuzzy import fuzz
 
-
+#############
+# Fuzzy match
+#############
 def fuzzy_group_words(words_list, fuzz_method=None, threshold=None):
+    """
+    fuzzy_group_words groups similar words into groups
+
+    :param words_list: a list of words
+    :type words_list: list
+    :param fuzz_method: a fuzzywuzzy method, defaults to `fuzzywuzzy.partial_ratio`
+    :param threshold: similarity threshold, defaults to 90
+    :type threshold: int, optional
+    :return: nested list of the grouped words
+    :rtype: list
+    """
 
     if fuzz_method is None:
         fuzz_method = fuzz.partial_ratio

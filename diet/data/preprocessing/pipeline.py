@@ -97,9 +97,7 @@ class BasePreProcessor(OrderedProcessor):
     """
 
     def __init__(self, config, columns):
-        super(BasePreProcessor, self).__init__(
-            config=config, columns=columns
-        )
+        super(BasePreProcessor, self).__init__(config=config, columns=columns)
 
         self.config = self.params.get("config")
         logger.info(f"Applying config:\n{self.config}")
@@ -140,14 +138,11 @@ class BasePreProcessor(OrderedProcessor):
             dataframe = pd.concat(datasets)
         elif isinstance(datasets, pd.DataFrame):
             logger.info(
-                "Input dataset is a single dataframe, "
-                "making a copy for safety"
+                "Input dataset is a single dataframe, " "making a copy for safety"
             )
             dataframe = datasets.copy()
         else:
-            raise TypeError(
-                "Input datasets should be dataframe or list of dataframes"
-            )
+            raise TypeError("Input datasets should be dataframe or list of dataframes")
 
         # Go through the transforms
         for t in self.transforms:
@@ -160,18 +155,15 @@ class BasePreProcessor(OrderedProcessor):
         return dataframe
 
 
-
 if __name__ == "__main__":
 
     from diet.data.preprocessing.ingredients import attributes
 
     class DemoPreProcessor(BasePreProcessor):
         def __init__(self, config, columns, cutoff_timestamp=None):
-            super(DemoPreProcessor, self).__init__(
-                config=config, columns=columns
-            )
+            super(DemoPreProcessor, self).__init__(config=config, columns=columns)
 
-            self.cutoff_timestamp=cutoff_timestamp
+            self.cutoff_timestamp = cutoff_timestamp
 
         def merge_datasets(self, datasets):
             """
@@ -183,9 +175,7 @@ if __name__ == "__main__":
             # 1. We only take data that is later than a certain date
 
             if self.cutoff_timestamp:
-                filter_a_mask = (
-                    df_a.req_created_at > self.cutoff_timestamp
-                )
+                filter_a_mask = df_a.req_created_at > self.cutoff_timestamp
 
             df_a = df_a.loc[filter_a_mask]
 
@@ -202,16 +192,12 @@ if __name__ == "__main__":
         @attributes(order=1)
         def _fix_names(self, dataset):
 
-            dataset["names"] = dataset.names.replace(
-                "Tima", "Tim"
-            )
+            dataset["names"] = dataset.names.replace("Tima", "Tim")
 
         @attributes(order=2)
         def _convert_requirement_to_bool(self, dataset):
 
-            dataset[
-                "requirements"
-            ] = dataset.requirements.apply(
+            dataset["requirements"] = dataset.requirements.apply(
                 lambda x: False if pd.isnull(x) else True
             )
 
@@ -242,10 +228,11 @@ if __name__ == "__main__":
                         fc_series = fc_series * dataset[fc_col]
                     dataset[fc] = fc_series
 
-
-    dp = DemoPreProcessor(config={}, columns=['names', 'requirements', 'names__requirements'])
+    dp = DemoPreProcessor(
+        config={}, columns=["names", "requirements", "names__requirements"]
+    )
     dataset = {
         "a": pd.DataFrame([{"names": "Tima Cook", "requirements": "I need it"}]),
-        "b": pd.DataFrame([{"names": "Time Cook", "requirements": None}])
+        "b": pd.DataFrame([{"names": "Time Cook", "requirements": None}]),
     }
     dp.preprocess(dataset)

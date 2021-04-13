@@ -4,7 +4,7 @@ import re
 
 def data_validator(input_str, validate_type):
     """
-    Validator is an object that hosts several validators for different
+    data_validator is an object that hosts several validators for different
     types of data such as domain name, email address, etc.
 
     The inputs are mostly validated using regex.
@@ -31,7 +31,7 @@ def data_validator(input_str, validate_type):
     }
 
     if validate_type not in regex_validate_types:
-        raise ValueError("validate_type ({}) is not defined".format(validate_type))
+        raise ValueError(f"validate_type ({validate_type}) is not defined")
     else:
         matched = regex_validate_types.get(validate_type).match(input_str)
         if matched:

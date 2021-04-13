@@ -1,13 +1,15 @@
 import numpy as np
 import scipy.stats as scs
-from diet.abtest.stats_util import cal_conversion_rate, cal_standard_error
 from diet.abtest.stats_util import (
-    cal_difference_standard_error,
+    cal_conversion_rate,
     cal_conversion_uplift,
+    cal_difference_standard_error,
+    cal_p_value,
+    cal_pooled_probability,
+    cal_pooled_std_err,
+    cal_standard_error,
+    cal_z_score,
 )
-from diet.abtest.stats_util import cal_pooled_probability, cal_pooled_std_err
-from diet.abtest.stats_util import cal_z_score
-from diet.abtest.stats_util import cal_p_value
 
 
 class ABTestRatiosNaive:
