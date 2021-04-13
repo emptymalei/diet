@@ -2,7 +2,7 @@ import inspect
 import re
 import time
 
-import diet.data.wrangling.ingredients as wlg
+import diet.data.wrangling as wlg
 import pandas as pd
 from loguru import logger
 

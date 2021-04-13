@@ -1,9 +1,9 @@
 Data - Transformation - Pipeline
 ==============================================
 
-Documentation for `diet.data.transformation.pipeline`
+Documentation for `diet.data.transformations.pipeline`
 
-.. automodule:: diet.data.transformation.pipeline
+.. automodule:: diet.data.transformations.pipeline
 
 
 Classes

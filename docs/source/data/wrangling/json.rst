@@ -29,5 +29,4 @@ Functions
 
 .. autofunction:: isoencode
 
-.. autofunction:: load_records
 
