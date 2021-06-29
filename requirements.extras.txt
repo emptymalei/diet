@@ -7,6 +7,9 @@
 nose: tests
 sphinx==2.3.1: docs
 sphinx_rtd_theme==0.4: docs
-sshtunnel>=0.1.5: sql
-pymysql>=1.0.2: sql
+sshtunnel>=0.1.5: database
+pymysql>=0.9.3: database
+sshtunnel>=0.1.5: database
+SQLAlchemy>=1.4.15: database
+psycopg2>=2.8.6: database
 awscli>=1.19.50: aws
