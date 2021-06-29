@@ -62,6 +62,28 @@ def get_value_in_dict_recursively(dictionary, path, ignore_path_fail=None):
             return None
 
 
+def update_dict_recursively(dictionary, key_path, value):
+    """
+    update or insert values to a dictionary recursively.
+
+    :param dict dictionary: the dictionary to be inserted into
+    :param list key_path: the path for the insertion value
+    :param item: value to be inserted
+    :returns: a dictionary with the inserted value
+
+    >>> update_dict_recursively({}, ['a', 'b', 1, 2], 'this_value')
+    {'a': {'b': {1: {2: 'this_value'}}}}
+    """
+    sub_dictionary = dictionary
+    for key in key_path[:-1]:
+        if key not in sub_dictionary:
+            sub_dictionary[key] = {}
+        sub_dictionary = sub_dictionary[key]
+
+    sub_dictionary[key_path[-1]] = value
+
+    return dictionary
+
 #################
 # Outlier
 #################
@@ -203,5 +225,51 @@ def eu_float_string_to_float(data):
             raise Exception(f"Could not convert string {data} to float: {e}")
     else:
         raise TypeError("Input data should be string")
+
+    return res
+
+
+def convert_to_list(inp):
+    """
+    convert_to_list converts string representation of lists to list
+
+    It also works for list, tuple, or set input.
+
+    :param inp: string representation of list, list, tuple, set
+    :return: converted list
+    :rtype: list
+    """
+
+    res = []
+    if isinstance(inp, str):
+        try:
+            res = ast.literal_eval(inp)
+        except Exception as e:
+            raise Exception(f"Could not convert {inp} to list")
+    elif isinstance(inp, (list, tuple, set)):
+        res = list(inp)
+
+    return res
+
+
+def convert_to_tuple(inp):
+    """
+    convert_to_tuple converts string representation of tuple to tuple
+
+    It also works for list, tuple, or set input.
+
+    :param inp: string representation of tuple, list, tuple, set
+    :return: converted tuple
+    :rtype: tuple
+    """
+
+    res = []
+    if isinstance(inp, str):
+        try:
+            res = ast.literal_eval(inp)
+        except Exception as e:
+            raise Exception(f"Could not convert {inp} to list")
+    if isinstance(inp, (list, tuple, set)):
+        res = tuple(inp)
 
     return res

@@ -4,38 +4,78 @@ import os
 from diet.data.wrangling.misc import (
     get_value_in_dict_recursively as _get_value_in_dict_recursively,
 )
+from diet.data.wrangling.json import isoencode
 from loguru import logger
 
 
-def prepare_folders(base_folder, folder_list=None):
+def prepare_folders(folders, base_folder=None):
     """
     prepare_folders creates the necessary folders
 
-    :param config: configurations of the model
-    :type config: dict
-    :param base_folder: base folder of the whole project
+    :param folders: list of folder keys in the config
+    :type folders: list
+    :param base_folder: base folder of the whole project, can be None.
     :type base_folder: str
-    :param folder_list: list of folders to create, relative to base_folder
-    :type folder_list: list
     """
-    if folder_list is None:
-        raise Exception("Please specify the list of folder using fodler_list")
 
-    if os.path.exists(base_folder):
-        logger.info(f"Using base folder {base_folder}!")
+    if base_folder is None:
+        logger.warning(f"No base folder specified: {base_folder}")
 
-    # prepare the model folder
-    if isinstance(folder_list, (tuple, list, set)):
-        pass
-    elif isinstance(folder_list, str):
-        logger.warning(f"Converting folder list: {folder_list} to a list")
-        folder = [folder_list]
+    if isinstance(folders, str):
+        logger.warning(f"{folders} is str, should use list. Converting to list...")
+        folders = [folders]
 
-    for folder in folder_list:
-        folder = os.path.join(base_folder, folder)
-        if not os.path.exists(folder):
-            os.makedirs(folder)
-            logger.info(f"created {folder}")
+    for folder in folders:
+        if base_folder is not None:
+            folder_local = os.path.join(base_folder, folder)
+        else:
+            folder_local = folders
+        if not os.path.exists(folder_local):
+            os.makedirs(folder_local)
+
+
+def cache_dataframe(dataframe, file, engine=None):
+    """
+    Write dataframe to a line-delineated json file.
+
+    .. warning::
+       pandas engine doesn't respect the date encoder define since it has its own.
+
+    :param dataframe: inut pandas dataframe
+    :param str file: path of file to be written to
+    :param engine: we have two engines to convert the data to json, pandas and json.
+    :return: if the engine is json, the converted json records are returned for inspections
+    :rtype: list
+    """
+
+    if engine is None:
+        engine = "json"
+
+    if os.path.isfile(file):
+        logger.error("File '{}' exists, overwriting...".format(file))
+
+    if engine == "json":
+        res = []
+        with open(file, "w") as f:
+            for _, row in dataframe.iterrows():
+                row_dict = row.to_dict()
+                logger.debug("cache_dataframe::", row_dict)
+                res.append(row_dict)
+                f.write(
+                    json.dumps(row.to_dict(), default=isoencode, ignore_nan=True) + "\n"
+                )
+        return res
+    elif engine == "pandas":
+        dataframe.to_json(
+            file,
+            orient="records",
+            lines=True,
+            date_format="iso",
+            default_handler=isoencode,
+        )
+    else:
+        raise Exception(f"No engine defined for {engine}")
+
 
 
 def save_records(data_inp, output, is_flush=None, write_mode=None):

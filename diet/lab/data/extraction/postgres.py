@@ -88,7 +88,7 @@ def local_sql_session(config):
     def local_sql_session_with_config(function):
         @wraps(function)
         def wrapper(*args, **kwargs):
-            return with_local_sql_session(function, *args, **kwargs)
+            return with_local_sql_session(function, config, *args, **kwargs)
 
         return wrapper
 
