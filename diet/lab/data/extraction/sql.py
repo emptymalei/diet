@@ -32,7 +32,7 @@ def query_data(queries, config):
            "sql_password": os.getenv("PLATFORM_SQL_PWD"),  # 'sql_password'
            "sql_main_database": 'db_name', # 'db_name'
            "sql_port": 3306,
-           "ssh_host": 'a.ssh.host.saloodo.com', #'ssh_hostname'
+           "ssh_host": 'a.ssh.host.great_host.com', #'ssh_hostname'
            "ssh_user": 'my_ssh_username', #'ssh_username'
            "ssh_port": 22,
            "ssh_key": ssh_key #
