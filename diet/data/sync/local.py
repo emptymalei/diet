@@ -77,7 +77,6 @@ def cache_dataframe(dataframe, file, engine=None):
         raise Exception(f"No engine defined for {engine}")
 
 
-
 def save_records(data_inp, output, is_flush=None, write_mode=None):
     """Save list of dicts to file. Instead of loading pandas for such a simple job, this function does the work in most cases.
 

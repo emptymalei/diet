@@ -22,7 +22,9 @@ def get_engine_for_port(port, host, config):
 
 def with_sql_session(function, config, args, kwargs, engine=None):
     if engine is None:
-        engine = get_engine_for_port(config.get("sql_port", 5432), config.get("sql_hostname"), config)
+        engine = get_engine_for_port(
+            config.get("sql_port", 5432), config.get("sql_hostname"), config
+        )
     Session = sessionmaker(bind=engine)
     session = Session()
     try:
