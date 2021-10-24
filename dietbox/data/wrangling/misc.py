@@ -244,7 +244,7 @@ def convert_to_list(inp):
     res = []
     if isinstance(inp, str):
         try:
-            res = ast.literal_eval(inp)
+            res = literal_eval(inp)
         except Exception as e:
             raise Exception(f"Could not convert {inp} to list")
     elif isinstance(inp, (list, tuple, set)):
@@ -267,7 +267,7 @@ def convert_to_tuple(inp):
     res = []
     if isinstance(inp, str):
         try:
-            res = ast.literal_eval(inp)
+            res = literal_eval(inp)
         except Exception as e:
             raise Exception(f"Could not convert {inp} to list")
     if isinstance(inp, (list, tuple, set)):
