@@ -37,10 +37,10 @@ jobs:
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # all Python files should follow PEP8
           # echo "flake8 all python"
-          # flake8 diet tests
+          # flake8 dietbox tests
           # exit-zero treats all errors as warnings.  The GitHub editor is 127 chars wide
           echo "flake8 BLK"
-          flake8 diet --count --exit-zero --max-complexity=18 --statistics --select BLK
+          flake8 dietbox --count --exit-zero --max-complexity=18 --statistics --select BLK
       - name: Test with nose
         run: nosetests
   build-n-publish:

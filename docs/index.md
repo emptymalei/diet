@@ -1,18 +1,18 @@
-# Documentation for DIET
+# Documentation for DIETBox
 
-The Data scIEnce Toolbox (DIET).
+The Data scIEnce Toolbox (DIETBox).
 
 
 ## Install
 
 ```
-pip install diet
+pip install dietbox
 ```
 
 This will leave out many dependencies. To install DIET together with other requirements,
 
 ```
-pip install "diet[all]"
+pip install "dietbox[all]"
 ```
 
 The extras options:

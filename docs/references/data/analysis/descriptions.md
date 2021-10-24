@@ -1,3 +1,3 @@
 ## Data - Analysis - Descriptions
 
-::: diet.data.analysis.descriptions
+::: dietbox.data.analysis.descriptions

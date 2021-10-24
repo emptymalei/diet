@@ -1,3 +1,3 @@
 ## Data - Sync - Local
 
-::: diet.data.sync.local
+::: dietbox.data.sync.local

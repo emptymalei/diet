@@ -1,8 +1,8 @@
 import json
 import os
 
-from diet.data.wrangling.json import isoencode
-from diet.data.wrangling.misc import (
+from dietbox.data.wrangling.json import isoencode
+from dietbox.data.wrangling.misc import (
     get_value_in_dict_recursively as _get_value_in_dict_recursively,
 )
 from loguru import logger

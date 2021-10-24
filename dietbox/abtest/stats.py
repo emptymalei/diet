@@ -1,6 +1,6 @@
 import numpy as np
 import scipy.stats as scs
-from diet.abtest.stats_util import (
+from dietbox.abtest.stats_util import (
     cal_conversion_rate,
     cal_conversion_uplift,
     cal_difference_standard_error,

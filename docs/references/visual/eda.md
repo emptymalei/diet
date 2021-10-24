@@ -1,5 +1,5 @@
 ## Visual - EDA
 
-::: diet.visual.eda
+::: dietbox.visual.eda
 
 

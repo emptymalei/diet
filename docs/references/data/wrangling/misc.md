@@ -1,3 +1,3 @@
 ## Data - Wrangling - misc
 
-::: diet.data.wrangling.misc
+::: dietbox.data.wrangling.misc

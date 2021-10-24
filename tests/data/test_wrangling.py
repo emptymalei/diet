@@ -1,5 +1,5 @@
 from nose import tools as _tools
-from diet.data.wrangling.misc import convert_str_repr_to_list
+from dietbox.data.wrangling.misc import convert_str_repr_to_list
 
 
 def test_convert_to_list():

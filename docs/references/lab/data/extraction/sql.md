@@ -1,6 +1,6 @@
 ## Lab - Data - Extraction - SQL
 
-::: diet.lab.data.extraction.sql
+::: dietbox.lab.data.extraction.sql
 
 
 

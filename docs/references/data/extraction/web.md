@@ -1,3 +1,3 @@
 ## Data - Analysis - Web
 
-::: diet.data.extraction.web
+::: dietbox.data.extraction.web
