@@ -1,4 +1,4 @@
 ## ABTest - stats
 
-::: diet.abtest.stats
+::: dietbox.abtest.stats
 
