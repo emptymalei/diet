@@ -8,30 +8,7 @@ from diet.data.wrangling.json import isoencode
 from loguru import logger
 
 
-def prepare_folders(folders, base_folder=None):
-    """
-    prepare_folders creates the necessary folders
 
-    :param folders: list of folder keys in the config
-    :type folders: list
-    :param base_folder: base folder of the whole project, can be None.
-    :type base_folder: str
-    """
-
-    if base_folder is None:
-        logger.warning(f"No base folder specified: {base_folder}")
-
-    if isinstance(folders, str):
-        logger.warning(f"{folders} is str, should use list. Converting to list...")
-        folders = [folders]
-
-    for folder in folders:
-        if base_folder is not None:
-            folder_local = os.path.join(base_folder, folder)
-        else:
-            folder_local = folders
-        if not os.path.exists(folder_local):
-            os.makedirs(folder_local)
 
 
 def cache_dataframe(dataframe, file, engine=None):

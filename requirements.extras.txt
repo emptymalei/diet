@@ -13,3 +13,5 @@ sshtunnel>=0.1.5: database
 SQLAlchemy>=1.4.15: database
 psycopg2>=2.8.6: database
 awscli>=1.19.50: aws
+matplotlib>=3.0.0: visual
+seaborn>=0.11.2: visual
