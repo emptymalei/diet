@@ -1,8 +1,6 @@
-import logging
-
-from sklearn.preprocessing import LabelEncoder, StandardScaler
 import pandas as pd
 from loguru import logger
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 
 class MultiColumnCategicalEncoder:

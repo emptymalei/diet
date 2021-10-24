@@ -1,5 +1,7 @@
-from loguru import logger
 from urllib.parse import unquote as _unquote
+
+from loguru import logger
+
 from .consts import ELF_CODE as _ELF_CODE
 
 

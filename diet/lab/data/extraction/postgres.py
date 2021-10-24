@@ -1,11 +1,11 @@
 # Adapted from
 # https://gist.github.com/danallison/7217d76d944ea4d8dabd0ba3041ebefc
+from functools import wraps
 
-from sshtunnel import SSHTunnelForwarder
+from loguru import logger
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from functools import wraps
-from loguru import logger
+from sshtunnel import SSHTunnelForwarder
 
 
 def get_engine_for_port(port, host, config):

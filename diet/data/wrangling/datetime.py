@@ -1,9 +1,8 @@
 import datetime
-from loguru import logger
 
 import dateutil
 import pandas as pd
-
+from loguru import logger
 
 ##################
 # Datetime Related
