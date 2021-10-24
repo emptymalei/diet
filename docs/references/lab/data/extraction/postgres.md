@@ -1,6 +1,6 @@
 ## Lab - Data - Extraction - Postgres
 
-::: diet.lab.data.extraction.postgres
+::: dietbox.lab.data.extraction.postgres
 
 
 

@@ -1,5 +1,5 @@
 ## Texts - Wrangling - Consts
 
-::: diet.texts.wrangling.consts
+::: dietbox.texts.wrangling.consts
 
 

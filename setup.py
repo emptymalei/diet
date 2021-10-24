@@ -1,13 +1,13 @@
 from setuptools import find_packages as _find_packages
 from setuptools import setup as _setup
 
-from diet.version import __version__
+from dietbox.version import __version__
 
-PACKAGE_NAME = "diet"
+PACKAGE_NAME = "dietbox"
 PACKAGE_VERSION = __version__
-PACKAGE_DESCRIPTION = "The DIET package for data science"
+PACKAGE_DESCRIPTION = "The DIETBox package for data science"
 PACKAGE_LONG_DESCRIPTION = (
-    "DIET, Data scIencE Toolbox, is yet another package for data science projects"
+    "DIETBox, Data scIencE Toolbox, is yet another package for data science projects"
 )
 PACKAGE_URL = "https://github.com/emptymalei/diet"
 

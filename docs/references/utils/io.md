@@ -1,5 +1,5 @@
 ## Utils - Sugar
 
-::: diet.utils.sugar
+::: dietbox.utils.sugar
 
 

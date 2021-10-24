@@ -1,4 +1,4 @@
 ## Data - Sync - AWS
 
-::: diet.data.sync.aws
+::: dietbox.data.sync.aws
 

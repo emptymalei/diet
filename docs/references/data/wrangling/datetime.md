@@ -1,3 +1,3 @@
 ## Data - Wrangling - datetime
 
-::: diet.data.wrangling.datetime
+::: dietbox.data.wrangling.datetime

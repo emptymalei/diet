@@ -1,7 +1,7 @@
 # mkdocs.yml
-site_name: "DIET"
+site_name: "DIETBox"
 site_author: L Ma
-site_description: "DIET is a data utility package"
+site_description: "DIETBox is a data utility package"
 site_url: "https://emptymalei.github.io/diet"
 repo_url: "https://github.com/emptymalei/diet"
 edit_uri: "blob/main/docs/"
@@ -68,7 +68,7 @@ plugins:
             filters:
               - "^_[^_]"
       watch:
-        - diet
+        - dietbox
 
 
 nav:

@@ -1,5 +1,5 @@
 ## Texts - Wrangling - Companies
 
-::: diet.texts.wrangling.companies
+::: dietbox.texts.wrangling.companies
 
 

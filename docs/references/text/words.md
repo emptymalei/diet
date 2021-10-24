@@ -1,5 +1,5 @@
 ## Texts - Words
 
-::: diet.texts.words
+::: dietbox.texts.words
 
 

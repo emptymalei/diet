@@ -1,6 +1,6 @@
 ## Lab - Model - Feature
 
-<!-- ::: diet.lab.model.feature -->
+::: dietbox.lab.model.feature
 
 
 

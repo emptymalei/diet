@@ -1,6 +1,6 @@
 # Data Science Toolbox
 
-Yet Another Data Toolbox: DIET (Data scIencE Toolbox), a collection of functions and scripts for my data projects.
+Yet Another Data Toolbox: DIETBox (Data scIencE Toolbox), a collection of functions and scripts for my data projects.
 
 ## Roadmap
 

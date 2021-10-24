@@ -1,5 +1,5 @@
 ## Texts - Validator
 
-::: diet.texts.validator
+::: dietbox.texts.validator
 
 

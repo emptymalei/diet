@@ -1,5 +1,5 @@
 ## Text - Words
 
-::: diet.utils.sugar
+::: dietbox.utils.sugar
 
 

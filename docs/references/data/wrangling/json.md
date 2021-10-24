@@ -1,3 +1,3 @@
 ## Data - Wrangling - json
 
-::: diet.data.wrangling.json
+::: dietbox.data.wrangling.json

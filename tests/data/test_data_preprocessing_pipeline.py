@@ -1,6 +1,6 @@
 import pandas as pd
-from diet.data.preprocessing.ingredients import attributes
-from diet.data.preprocessing.pipeline import BasePreProcessor
+from dietbox.data.preprocessing.ingredients import attributes
+from dietbox.data.preprocessing.pipeline import BasePreProcessor
 
 
 class DemoPreProcessor(BasePreProcessor):
