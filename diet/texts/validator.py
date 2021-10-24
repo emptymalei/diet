@@ -1,5 +1,6 @@
-from loguru import logger
 import re
+
+from loguru import logger
 
 
 def data_validator(input_str, validate_type):

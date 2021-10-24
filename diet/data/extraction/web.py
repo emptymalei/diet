@@ -183,13 +183,8 @@ if __name__ == "__main__":
     print(get_session())
 
     test_content = get_page_content("https://google.com")
-    print(
-        test_content["status"],
-        test_content["content"]
-    )
+    print(test_content["status"], test_content["content"])
 
-    print(
-        test_content["content"].text
-    )
+    print(test_content["content"].text)
 
     pass

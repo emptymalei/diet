@@ -1,0 +1,125 @@
+# mkdocs.yml
+site_name: "DIET"
+site_author: L Ma
+site_description: "DIET is a data utility package"
+site_url: "https://emptymalei.github.io/diet"
+repo_url: "https://github.com/emptymalei/diet"
+edit_uri: "blob/main/docs/"
+repo_name: "emptymalei/diet"
+
+
+theme:
+  name: "material"
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  # Default values, taken from mkdocs_theme.yml
+  language: en
+  features:
+    # - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: red
+      accent: red
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: assets/logo/logo.png
+  logo: assets/logo/logo.png
+
+
+
+markdown_extensions:
+  - admonition
+  - pymdownx.emoji
+  - pymdownx.magiclink
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tasklist
+  - toc:
+      permalink: "¤"
+
+plugins:
+  - autorefs
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - import sys
+            - sys.path.append("docs")
+          selection:
+            docstring_style: "restructured-text"
+            members: yes
+            filters:
+              - "^_[^_]"
+      watch:
+        - diet
+
+
+nav:
+  - "Home": index.md
+  - "Tutorials":
+    - "Tutorials": tutorials/index.md
+  - References:
+    - "Introduction": references/index.md
+    - "AB Test":
+      - "abtest": references/abtest/index.md
+      - "abtest.stats": references/abtest/stats.md
+      - "abtest.stats_util": references/abtest/stats_util.md
+    - "Data":
+      - "data": references/data/index.md
+      - "data.wrangling":
+        - "data.wrangling": references/data/wrangling/index.md
+        - "data.wrangling.datetime": references/data/wrangling/datetime.md
+        - "data.wrangling.json": references/data/wrangling/json.md
+        - "data.wrangling.misc": references/data/wrangling/misc.md
+      - "data.analysis":
+        - "data.analysis": references/data/analysis/index.md
+        - "data.analysis.description": references/data/analysis/descriptions.md
+      - "data.extraction":
+        - "data.extraction": references/data/extraction/index.md
+        - "data.extraction.web": references/data/extraction/web.md
+      - "data.sync":
+        - "data.sync": references/data/sync/index.md
+        - "data.sync.local": references/data/sync/local.md
+        - "data.sync.aws": references/data/sync/aws.md
+    - "Lab":
+      - "lab": references/lab/index.md
+      - "lab.data":
+        - "lab.data": references/lab/data/index.md
+        - "lab.data.extraction": references/lab/data/extraction/index.md
+        - "lab.data.extraction.sql": references/lab/data/extraction/sql.md
+        - "lab.data.extraction.postgres": references/lab/data/extraction/postgres.md
+      - "lab.model":
+        - "lab.model": references/lab/model/index.md
+        - "lab.model.feature": references/lab/model/feature.md
+    - "Text":
+      - "text.wrangling": references/text/index.md
+      - "text.wrangling": references/text/wrangling/index.md
+      - "text.wrangling.consts": references/text/wrangling/consts.md
+      - "text.wrangling.companies": references/text/wrangling/companies.md
+      - "text.validator": references/text/validator.md
+      - "text.words": references/text/words.md
+    - "Utils":
+      - "utils": references/utils/index.md
+      - "utils.io": references/utils/io.md
+      - "utils.sugar": references/utils/sugar.md
+    - "Visual":
+      - "visual": references/visual/index.md
+      - "visual.eda": references/visual/eda.md
+  - "Changelog": changelog.md
