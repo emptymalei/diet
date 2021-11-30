@@ -13,6 +13,8 @@ from dietbox.abtest.stats_util import (
 
 
 class ABTestRatiosNaive:
+    """A naive AB Test ratios class
+    """
     def __init__(self, ab_test_data, test_name=None):
 
         self.data = ab_test_data
@@ -93,7 +95,7 @@ class ABTestRatiosNaive:
         return self.uplift
 
     def p_value(self, test=None):
-        """"""
+        """calculate p-value"""
 
         # self.conversion_rate()
 
@@ -102,6 +104,7 @@ class ABTestRatiosNaive:
         return self.p
 
     def z_score(self, significance_level=None, two_tailed=None):
+        """Calculate z-score"""
 
         if significance_level is None:
             significance_level = self.p
@@ -341,6 +344,7 @@ class ABTestRatios:
 
 
 class ABTestSeries:
+    """AB test of series data"""
     def __init__(self, ab_test_data, kpi_method=None, test_name=None):
 
         if test_name:
@@ -404,7 +408,7 @@ class ABTestSeries:
         return self.uplift
 
     def p_value(self):
-        """"""
+        """calculate p-value"""
 
         self.kpi()
 

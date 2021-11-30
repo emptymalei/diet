@@ -4,6 +4,12 @@ on:
     branches:
       - master
       - main
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'publish docs'
+        required: false
+        default: 'I Just wanna publish the docs'
 
 jobs:
   deploy:

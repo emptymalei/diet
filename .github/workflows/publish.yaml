@@ -5,6 +5,12 @@ on:
     branches:
         - "main"
         - "master"
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Publish It! Careful!'
+        required: false
+        default: 'I Just wanna publish it! Are you sure????'
 
 jobs:
   tests:
